@@ -11,7 +11,7 @@ library(stringi)
 library(text2vec)
 library(entropy) 
 library(udpipe)
-
+setwd("C:\\Users\\wagbr\\OneDrive\\Documentos\\Estilometria")
 #-------------------------------------------------
 safe_read_html <- function(url) {
   RETRY("GET", url,
@@ -86,7 +86,6 @@ head(annales_df)
 #---------------------------------------------------------
 # 0. Carregar o modelo udpipe
 #---------------------------------------------------------
-setwd("C:\\Users\\wagbr\\OneDrive\\Documentos\\Estilometria")
 udpipe_download_model("latin-proiel")
 modelo <- udpipe_load_model("latin-proiel-ud-2.5-191206.udpipe")
 
@@ -202,10 +201,6 @@ dim(dtm)
 # opcional: retire docs/cols totalmente zerados
 dtm <- dtm[rowSums(dtm) > 0, colSums(dtm) > 0]
 dim(dtm)
-
-# distância coseno
-sim   <- sim2(dtm, method = "cosine", norm = "l2")
-distc <- as.dist(1 - sim)
 
 linha_testimonium_taciteus <- which(rownames(dtm) == "15.44")
 
